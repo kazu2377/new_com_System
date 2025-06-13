@@ -6,7 +6,13 @@
       "Bash(npm init:*)",
       "Bash(npm install:*)",
       "Bash(mkdir:*)",
-      "Bash(npm run test:run:*)"
+      "Bash(npm run test:run:*)",
+      "Bash(npx husky init:*)",
+      "Bash(chmod:*)",
+      "Bash(npm run lint)",
+      "Bash(npm run build:*)",
+      "Bash(rm:*)",
+      "Bash(npm cache clean:*)"
     ],
     "deny": []
   }

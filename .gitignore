@@ -1,0 +1,12 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Production
+/build
+/dist
+
+# Misc
+.DS_Store
+*.log
