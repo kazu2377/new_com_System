@@ -1,9 +1,0 @@
-
-# Lintチェック  
-npm run lint
-
-# フォーマットチェック
-npm run format:check
-
-# テスト実行
-npm run test:run
