@@ -13,7 +13,10 @@
       "Bash(npm run build:*)",
       "Bash(rm:*)",
       "Bash(npm cache clean:*)",
-      "Bash(npm run format:*)"
+      "Bash(npm run format:*)",
+      "Bash(gh pr list:*)",
+      "Bash(mv:*)",
+      "Bash(npm run type-check:*)"
     ],
     "deny": []
   }
