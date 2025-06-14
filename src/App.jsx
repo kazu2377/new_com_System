@@ -7,23 +7,28 @@ function App() {
 
   const addTodo = () => {
     if (inputValue.trim() !== '') {
-      setTodos([...todos, {
-        id: Date.now(),
-        text: inputValue,
-        completed: false
-      }])
+      setTodos([
+        ...todos,
+        {
+          id: Date.now(),
+          text: inputValue,
+          completed: false,
+        },
+      ])
       setInputValue('')
     }
   }
 
-  const deleteTodo = (id) => {
+  const deleteTodo = id => {
     setTodos(todos.filter(todo => todo.id !== id))
   }
 
-  const toggleTodo = (id) => {
-    setTodos(todos.map(todo =>
-      todo.id === id ? { ...todo, completed: !todo.completed } : todo
-    ))
+  const toggleTodo = id => {
+    setTodos(
+      todos.map(todo =>
+        todo.id === id ? { ...todo, completed: !todo.completed } : todo
+      )
+    )
   }
 
   return (
@@ -33,17 +38,22 @@ function App() {
         <input
           type="text"
           value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
+          onChange={e => setInputValue(e.target.value)}
           placeholder="新しいタスクを入力..."
-          onKeyPress={(e) => e.key === 'Enter' && addTodo()}
+          onKeyPress={e => e.key === 'Enter' && addTodo()}
         />
         <button onClick={addTodo}>追加</button>
       </div>
       <ul className="todo-list">
         {todos.map(todo => (
-          <li key={todo.id} className={`todo-item ${todo.completed ? 'completed' : ''}`}>
+          <li
+            key={todo.id}
+            className={`todo-item ${todo.completed ? 'completed' : ''}`}
+          >
             <span onClick={() => toggleTodo(todo.id)}>{todo.text}</span>
-            <button onClick={() => deleteTodo(todo.id)} className="delete-btn">削除</button>
+            <button onClick={() => deleteTodo(todo.id)} className="delete-btn">
+              削除
+            </button>
           </li>
         ))}
       </ul>
