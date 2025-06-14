@@ -1,11 +1,17 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import './App.css'
 
-function App() {
-  const [todos, setTodos] = useState([])
-  const [inputValue, setInputValue] = useState('')
+interface Todo {
+  id: number
+  text: string
+  completed: boolean
+}
 
-  const addTodo = () => {
+function App(): React.JSX.Element {
+  const [todos, setTodos] = useState<Todo[]>([])
+  const [inputValue, setInputValue] = useState<string>('')
+
+  const addTodo = (): void => {
     if (inputValue.trim() !== '') {
       setTodos([
         ...todos,
@@ -19,11 +25,11 @@ function App() {
     }
   }
 
-  const deleteTodo = id => {
+  const deleteTodo = (id: number): void => {
     setTodos(todos.filter(todo => todo.id !== id))
   }
 
-  const toggleTodo = id => {
+  const toggleTodo = (id: number): void => {
     setTodos(
       todos.map(todo =>
         todo.id === id ? { ...todo, completed: !todo.completed } : todo
@@ -38,9 +44,13 @@ function App() {
         <input
           type="text"
           value={inputValue}
-          onChange={e => setInputValue(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setInputValue(e.target.value)
+          }
           placeholder="新しいタスクを入力..."
-          onKeyPress={e => e.key === 'Enter' && addTodo()}
+          onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) =>
+            e.key === 'Enter' && addTodo()
+          }
         />
         <button onClick={addTodo}>追加</button>
       </div>
