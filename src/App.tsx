@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import './App.css'
 
 interface Todo {
@@ -24,10 +24,6 @@ function App(): React.JSX.Element {
       setInputValue('')
     }
   }
-
-  useEffect(() => {
-    console.log('初回レンダリング起動')
-  }, [])
 
   const deleteTodo = (id: number): void => {
     setTodos(todos.filter(todo => todo.id !== id))
