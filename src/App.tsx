@@ -25,9 +25,7 @@ function App(): React.JSX.Element {
     }
   }
 
-  useEffect(() => {
-    console.log('初回レンダリング起動')
-  }, [])
+  
 
   const deleteTodo = (id: number): void => {
     setTodos(todos.filter(todo => todo.id !== id))
