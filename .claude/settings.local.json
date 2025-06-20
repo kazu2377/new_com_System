@@ -17,7 +17,8 @@
       "Bash(gh pr list:*)",
       "Bash(mv:*)",
       "Bash(npm run type-check:*)",
-      "にほんごで記載するように"
+      "にほんごで記載するように",
+      "WebFetch(domain:developers.cloudflare.com)"
     ],
     "deny": []
   }
