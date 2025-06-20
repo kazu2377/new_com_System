@@ -16,7 +16,8 @@
       "Bash(npm run format:*)",
       "Bash(gh pr list:*)",
       "Bash(mv:*)",
-      "Bash(npm run type-check:*)"
+      "Bash(npm run type-check:*)",
+      "にほんごで記載するように"
     ],
     "deny": []
   }
