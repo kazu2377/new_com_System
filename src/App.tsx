@@ -39,7 +39,7 @@ function App(): React.JSX.Element {
 
   return (
     <div className="app">
-      <h1>Todo アプリ2</h1>
+      <h1>Todo アプリ</h1>
       <div className="input-container">
         <input
           type="text"
@@ -47,7 +47,7 @@ function App(): React.JSX.Element {
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setInputValue(e.target.value)
           }
-          placeholder="新しいタスクを入力..."
+          placeholder="新しいタスクを入力してください..."
           onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) =>
             e.key === 'Enter' && addTodo()
           }
