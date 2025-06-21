@@ -39,7 +39,7 @@ function App(): React.JSX.Element {
 
   return (
     <div className="app">
-      <h1>Todo アプリ</h1>
+      <h1>Todo アプリ2</h1>
       <div className="input-container">
         <input
           type="text"
