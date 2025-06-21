@@ -10,6 +10,8 @@ interface Todo {
 function App(): React.JSX.Element {
   const [todos, setTodos] = useState<Todo[]>([])
   const [inputValue, setInputValue] = useState<string>('')
+  const [editingId, setEditingId] = useState<number | null>(null)
+  const [editingText, setEditingText] = useState<string>('')
 
   const addTodo = (): void => {
     if (inputValue.trim() !== '') {
@@ -37,6 +39,38 @@ function App(): React.JSX.Element {
     )
   }
 
+  const startEditing = (id: number, text: string): void => {
+    setEditingId(id)
+    setEditingText(text)
+  }
+
+  const saveEdit = (): void => {
+    if (editingId !== null && editingText.trim() !== '') {
+      setTodos(
+        todos.map(todo =>
+          todo.id === editingId ? { ...todo, text: editingText } : todo
+        )
+      )
+    }
+    setEditingId(null)
+    setEditingText('')
+  }
+
+  const cancelEdit = (): void => {
+    setEditingId(null)
+    setEditingText('')
+  }
+
+  const handleEditKeyDown = (
+    e: React.KeyboardEvent<HTMLInputElement>
+  ): void => {
+    if (e.key === 'Enter') {
+      saveEdit()
+    } else if (e.key === 'Escape') {
+      cancelEdit()
+    }
+  }
+
   return (
     <div className="app">
       <h1>Todo アプリ</h1>
@@ -60,7 +94,27 @@ function App(): React.JSX.Element {
             key={todo.id}
             className={`todo-item ${todo.completed ? 'completed' : ''}`}
           >
-            <span onClick={() => toggleTodo(todo.id)}>{todo.text}</span>
+            {editingId === todo.id ? (
+              <input
+                type="text"
+                value={editingText}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setEditingText(e.target.value)
+                }
+                onKeyDown={handleEditKeyDown}
+                onBlur={saveEdit}
+                autoFocus
+                className="edit-input"
+              />
+            ) : (
+              <span
+                onClick={() => toggleTodo(todo.id)}
+                onDoubleClick={() => startEditing(todo.id, todo.text)}
+                className="todo-text"
+              >
+                {todo.text}
+              </span>
+            )}
             <button onClick={() => deleteTodo(todo.id)} className="delete-btn">
               削除
             </button>
