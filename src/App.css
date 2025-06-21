@@ -89,3 +89,29 @@ h1 {
 .delete-btn:hover {
   background-color: #da190b;
 }
+
+.todo-text {
+  flex: 1;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.todo-text:hover {
+  background-color: rgba(76, 175, 80, 0.1);
+  border-radius: 2px;
+}
+
+.edit-input {
+  flex: 1;
+  padding: 8px;
+  border: 2px solid #4CAF50;
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: white;
+}
+
+.edit-input:focus {
+  outline: none;
+  border-color: #45a049;
+  box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+}

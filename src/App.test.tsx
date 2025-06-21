@@ -131,4 +131,109 @@ describe('Todo アプリ', () => {
 
     expect(todoList).toBeEmptyDOMElement()
   })
+
+  it('ダブルクリックでタスクを編集モードにできる', async () => {
+    const user = userEvent.setup()
+    render(<App />)
+
+    const input = screen.getByPlaceholderText('新しいタスクを入力...')
+    const addButton = screen.getByText('追加')
+
+    await user.type(input, '編集テスト')
+    await user.click(addButton)
+
+    const todoText = screen.getByText('編集テスト')
+    await user.dblClick(todoText)
+
+    const editInput = screen.getByDisplayValue('編集テスト')
+    expect(editInput).toBeInTheDocument()
+    expect(editInput).toHaveFocus()
+  })
+
+  it('編集モードでEnterキーを押すと編集が完了する', async () => {
+    const user = userEvent.setup()
+    render(<App />)
+
+    const input = screen.getByPlaceholderText('新しいタスクを入力...')
+    const addButton = screen.getByText('追加')
+
+    await user.type(input, '編集前テキスト')
+    await user.click(addButton)
+
+    const todoText = screen.getByText('編集前テキスト')
+    await user.dblClick(todoText)
+
+    const editInput = screen.getByDisplayValue('編集前テキスト')
+    await user.clear(editInput)
+    await user.type(editInput, '編集後テキスト')
+    await user.keyboard('{Enter}')
+
+    expect(screen.getByText('編集後テキスト')).toBeInTheDocument()
+    expect(screen.queryByDisplayValue('編集後テキスト')).not.toBeInTheDocument()
+  })
+
+  it('編集モードでEscapeキーを押すと編集がキャンセルされる', async () => {
+    const user = userEvent.setup()
+    render(<App />)
+
+    const input = screen.getByPlaceholderText('新しいタスクを入力...')
+    const addButton = screen.getByText('追加')
+
+    await user.type(input, 'キャンセルテスト')
+    await user.click(addButton)
+
+    const todoText = screen.getByText('キャンセルテスト')
+    await user.dblClick(todoText)
+
+    const editInput = screen.getByDisplayValue('キャンセルテスト')
+    await user.clear(editInput)
+    await user.type(editInput, '変更内容')
+    await user.keyboard('{Escape}')
+
+    expect(screen.getByText('キャンセルテスト')).toBeInTheDocument()
+    expect(screen.queryByDisplayValue('変更内容')).not.toBeInTheDocument()
+  })
+
+  it('編集モードでフォーカスを失うと編集が完了する', async () => {
+    const user = userEvent.setup()
+    render(<App />)
+
+    const input = screen.getByPlaceholderText('新しいタスクを入力...')
+    const addButton = screen.getByText('追加')
+
+    await user.type(input, 'ブラーテスト')
+    await user.click(addButton)
+
+    const todoText = screen.getByText('ブラーテスト')
+    await user.dblClick(todoText)
+
+    const editInput = screen.getByDisplayValue('ブラーテスト')
+    await user.clear(editInput)
+    await user.type(editInput, 'ブラー後テキスト')
+    
+    await user.click(addButton)
+
+    expect(screen.getByText('ブラー後テキスト')).toBeInTheDocument()
+    expect(screen.queryByDisplayValue('ブラー後テキスト')).not.toBeInTheDocument()
+  })
+
+  it('編集モードで空のテキストを保存しようとすると元のテキストが保持される', async () => {
+    const user = userEvent.setup()
+    render(<App />)
+
+    const input = screen.getByPlaceholderText('新しいタスクを入力...')
+    const addButton = screen.getByText('追加')
+
+    await user.type(input, '空文字テスト')
+    await user.click(addButton)
+
+    const todoText = screen.getByText('空文字テスト')
+    await user.dblClick(todoText)
+
+    const editInput = screen.getByDisplayValue('空文字テスト')
+    await user.clear(editInput)
+    await user.keyboard('{Enter}')
+
+    expect(screen.getByText('空文字テスト')).toBeInTheDocument()
+  })
 })
