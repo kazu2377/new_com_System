@@ -1,6 +1,6 @@
-import { describe, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { describe, expect, it } from 'vitest'
 import App from './App'
 
 describe('Todo アプリ', () => {
@@ -210,11 +210,13 @@ describe('Todo アプリ', () => {
     const editInput = screen.getByDisplayValue('ブラーテスト')
     await user.clear(editInput)
     await user.type(editInput, 'ブラー後テキスト')
-    
+
     await user.click(addButton)
 
     expect(screen.getByText('ブラー後テキスト')).toBeInTheDocument()
-    expect(screen.queryByDisplayValue('ブラー後テキスト')).not.toBeInTheDocument()
+    expect(
+      screen.queryByDisplayValue('ブラー後テキスト')
+    ).not.toBeInTheDocument()
   })
 
   it('編集モードで空のテキストを保存しようとすると元のテキストが保持される', async () => {

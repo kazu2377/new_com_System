@@ -61,7 +61,9 @@ function App(): React.JSX.Element {
     setEditingText('')
   }
 
-  const handleEditKeyDown = (e: React.KeyboardEvent<HTMLInputElement>): void => {
+  const handleEditKeyDown = (
+    e: React.KeyboardEvent<HTMLInputElement>
+  ): void => {
     if (e.key === 'Enter') {
       saveEdit()
     } else if (e.key === 'Escape') {
